@@ -113,3 +113,22 @@ db.inventory.find({
 db.inventory.find({
   $or: [{ qty: { $gte: 50 } }, { status: 'D' }],
 });
+
+//SELECT * FROM inventory WHERE qty >= 50  OR status  "D" AND item  = "journal"
+db.inventory.find({
+  $or: [{ qty: { $gte: 50 } }, { status: 'D', item: 'journal' }],
+});
+
+//обращение к свойствам обьекта
+//SELECT * FROM size.uom = 'cm';
+db.users.find();
+
+db.inventory.find({
+  'size.uom': 'cm',
+});
+
+//отфильтровать все записи где существует определенное  поле
+//все пользователи с полем email
+db.users.find({
+  email: { $exists: true },
+});
