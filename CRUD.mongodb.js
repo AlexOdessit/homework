@@ -134,6 +134,21 @@ db.users.find({
 });
 
 db.users.find();
+db.inventory.find();
+
+//Update -   обновить данные
+//updateOne - первая запись по критерию
+db.inventory.updateOne(
+  { status: 'A' },
+  { $set: { status: 'Accepted', 'size.uom': 'cm' } }
+);
+
+//Update  inventory set status  = "Accepted" WHERE status = 'A' or size.uom = "cm"
+//update many
+db.inventory.updateMany(
+  { status: 'A' },
+  { $set: { status: 'Accepted', 'size.uom': 'cm' } }
+);
 
 //DELETE
 // удалить запись
