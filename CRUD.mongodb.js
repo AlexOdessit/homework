@@ -28,3 +28,88 @@ db.users.insertOne({
     phone: +34000000,
   },
 });
+
+//вставка многих записей
+
+db.users.insertMany([
+  {
+    fullName: 'John Doe',
+    weight: 98,
+    height: 190,
+    deliveryAdresses: [
+      {
+        city: 'Odessa',
+        country: 'Ukraine',
+        district: 'Kievskiy',
+        street: 'Tairova',
+      },
+      {
+        city: 'Odessa',
+        country: 'Ukraine',
+        district: 'Kievskiy',
+        street: 'Fontan',
+      },
+
+      {
+        email: 'user3@gmail.com',
+      },
+    ],
+  },
+]);
+
+db.inventory.insertMany([
+  { item: 'journal', qty: 25, size: { h: 14, w: 21, uom: 'cm' }, status: 'A' },
+  {
+    item: 'notebook',
+    qty: 50,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    status: 'A',
+  },
+  { item: 'paper', qty: 100, size: { h: 8.5, w: 11, uom: 'in' }, status: 'D' },
+  {
+    item: 'planner',
+    qty: 75,
+    size: { h: 22.85, w: 30, uom: 'cm' },
+    status: 'D',
+  },
+  {
+    item: 'postcard',
+    qty: 45,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    status: 'A',
+  },
+]);
+
+// Read - получениe дан Inventory
+//SELECT * FROM inventory
+//db.collection.find(query,projection,options);
+/* query -обьект фильтрации данных 
+   projection - обьект списка выборки
+   options - другие настройки 
+*/
+
+//SELECT * FROM inventory WHERE status  "D"
+db.inventory.find({
+  status: 'D',
+});
+//SELECT * FROM inventory WHERE qty < 60
+
+db.inventory.find({
+  qty: { $lt: 50 },
+});
+
+//SELECT * FROM inventory WHERE qty >= 50  AND status  "D"
+db.inventory.find({
+  qty: { $gte: 50 },
+  status: 'D',
+});
+
+//v2
+db.inventory.find({
+  $and: [{ status: 'D' }, { qty: { $gte: 50 } }],
+});
+
+//SELECT * FROM inventory WHERE qty >= 50  OR status  "D"
+db.inventory.find({
+  $or: [{ qty: { $gte: 50 } }, { status: 'D' }],
+});
