@@ -132,3 +132,17 @@ db.inventory.find({
 db.users.find({
   email: { $exists: true },
 });
+
+db.users.find();
+
+//DELETE
+// удалить запись
+//DELETE FROM users;
+db.users.deleteOne({
+  _id: new ObjectId('66169aacdcc4fe4d97cc0750'),
+});
+//delete all without email
+db.users.deleteMany({ email: { $exists: false } });
+
+//delete all collection
+db.inventory.drop();
