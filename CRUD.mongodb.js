@@ -161,3 +161,42 @@ db.users.deleteMany({ email: { $exists: false } });
 
 //delete all collection
 db.inventory.drop();
+
+//Insert cats collection
+db.cats.insertOne({
+  name: 'Valdemar',
+  age: 0.7,
+  gender: 'male',
+  breed: 'Scotish fold',
+  weight: 0.89,
+});
+
+db.cats.insertMany([
+  {
+    name: 'Garfield',
+    details: {
+      age: 5,
+      gender: 'male',
+      weight: 2,
+      breed: 'Scotich fold',
+    },
+  },
+  {
+    name: 'Nastya',
+    details: {
+      age: 7,
+      gender: 'female',
+      weight: 3.5,
+      breed: 'Somali',
+    },
+  },
+  {
+    name: 'Max',
+    details: {
+      age: 2,
+      gender: 'male',
+      weight: 1,
+      breed: 'Ceylon',
+    },
+  },
+]);
