@@ -140,14 +140,14 @@ db.inventory.find();
 //updateOne - первая запись по критерию
 db.inventory.updateOne(
   { status: 'A' },
-  { $set: { status: 'Accepted', 'size.uom': 'cm' } }
+  { $set: { status: 'Accepted', 'size.uom': 'cm' } },
 );
 
 //Update  inventory set status  = "Accepted" WHERE status = 'A' or size.uom = "cm"
 //update many
 db.inventory.updateMany(
   { status: 'A' },
-  { $set: { status: 'Accepted', 'size.uom': 'cm' } }
+  { $set: { status: 'Accepted', 'size.uom': 'cm' } },
 );
 
 //DELETE
@@ -165,10 +165,12 @@ db.inventory.drop();
 //Insert cats collection
 db.cats.insertOne({
   name: 'Valdemar',
-  age: 0.7,
-  gender: 'male',
-  breed: 'Scotish fold',
-  weight: 0.89,
+  details: {
+    age: 0.7,
+    gender: 'male',
+    weight: 0.89,
+    breed: 'Scotish fold',
+  },
 });
 
 db.cats.insertMany([
@@ -200,3 +202,29 @@ db.cats.insertMany([
     },
   },
 ]);
+
+db.cats.updateMany(
+  {
+    'details.breed': 'Scotich fold',
+  },
+  { $set: { breed: 'Scotish' } },
+);
+
+db.cats.find();
+
+//
+// db.cats.updateOne({ name: 'Garfield' }, { $unset: { breed: 'Scotish' } }); -удаляем опредеденное поле по условию
+
+// db.cats.updateOne(
+//   { 'details.breed': 'Scotish fold' },
+//   { $set: { 'details.breed': 'Scotish' } }
+// );
+
+db.cats.updateOne(
+  { name: 'Valdemar' },
+  {
+    $set: {
+      'details.age': 3,
+    },
+  },
+);
