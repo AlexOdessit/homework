@@ -13,9 +13,9 @@ db.users.insertOne({
   adress: {
     city: 'Odessa',
     country: 'Ukraine',
-    phone: +380970479968,
-  },
-});
+    phone: +380970479968
+  }
+})
 
 db.users.insertOne({
   fullName: 'Test User',
@@ -25,9 +25,9 @@ db.users.insertOne({
   adress: {
     city: 'Kiev',
     country: 'Ukraine',
-    phone: +34000000,
-  },
-});
+    phone: +34000000
+  }
+})
 
 //вставка многих записей
 
@@ -41,21 +41,21 @@ db.users.insertMany([
         city: 'Odessa',
         country: 'Ukraine',
         district: 'Kievskiy',
-        street: 'Tairova',
+        street: 'Tairova'
       },
       {
         city: 'Odessa',
         country: 'Ukraine',
         district: 'Kievskiy',
-        street: 'Fontan',
+        street: 'Fontan'
       },
 
       {
-        email: 'user3@gmail.com',
-      },
-    ],
-  },
-]);
+        email: 'user3@gmail.com'
+      }
+    ]
+  }
+])
 
 db.inventory.insertMany([
   { item: 'journal', qty: 25, size: { h: 14, w: 21, uom: 'cm' }, status: 'A' },
@@ -63,22 +63,22 @@ db.inventory.insertMany([
     item: 'notebook',
     qty: 50,
     size: { h: 8.5, w: 11, uom: 'in' },
-    status: 'A',
+    status: 'A'
   },
   { item: 'paper', qty: 100, size: { h: 8.5, w: 11, uom: 'in' }, status: 'D' },
   {
     item: 'planner',
     qty: 75,
     size: { h: 22.85, w: 30, uom: 'cm' },
-    status: 'D',
+    status: 'D'
   },
   {
     item: 'postcard',
     qty: 45,
     size: { h: 10, w: 15.25, uom: 'cm' },
-    status: 'A',
-  },
-]);
+    status: 'A'
+  }
+])
 
 // Read - получениe дан Inventory
 //SELECT * FROM inventory
@@ -90,77 +90,77 @@ db.inventory.insertMany([
 
 //SELECT * FROM inventory WHERE status  "D"
 db.inventory.find({
-  status: 'D',
-});
+  status: 'D'
+})
 //SELECT * FROM inventory WHERE qty < 60
 
 db.inventory.find({
-  qty: { $lt: 50 },
-});
+  qty: { $lt: 50 }
+})
 
 //SELECT * FROM inventory WHERE qty >= 50  AND status  "D"
 db.inventory.find({
   qty: { $gte: 50 },
-  status: 'D',
-});
+  status: 'D'
+})
 
 //v2
 db.inventory.find({
-  $and: [{ status: 'D' }, { qty: { $gte: 50 } }],
-});
+  $and: [{ status: 'D' }, { qty: { $gte: 50 } }]
+})
 
 //SELECT * FROM inventory WHERE qty >= 50  OR status  "D"
 db.inventory.find({
-  $or: [{ qty: { $gte: 50 } }, { status: 'D' }],
-});
+  $or: [{ qty: { $gte: 50 } }, { status: 'D' }]
+})
 
 //SELECT * FROM inventory WHERE qty >= 50  OR status  "D" AND item  = "journal"
 db.inventory.find({
-  $or: [{ qty: { $gte: 50 } }, { status: 'D', item: 'journal' }],
-});
+  $or: [{ qty: { $gte: 50 } }, { status: 'D', item: 'journal' }]
+})
 
 //обращение к свойствам обьекта
 //SELECT * FROM size.uom = 'cm';
-db.users.find();
+db.users.find()
 
 db.inventory.find({
-  'size.uom': 'cm',
-});
+  'size.uom': 'cm'
+})
 
 //отфильтровать все записи где существует определенное  поле
 //все пользователи с полем email
 db.users.find({
-  email: { $exists: true },
-});
+  email: { $exists: true }
+})
 
-db.users.find();
-db.inventory.find();
+db.users.find()
+db.inventory.find()
 
 //Update -   обновить данные
 //updateOne - первая запись по критерию
 db.inventory.updateOne(
   { status: 'A' },
-  { $set: { status: 'Accepted', 'size.uom': 'cm' } },
-);
+  { $set: { status: 'Accepted', 'size.uom': 'cm' } }
+)
 
 //Update  inventory set status  = "Accepted" WHERE status = 'A' or size.uom = "cm"
 //update many
 db.inventory.updateMany(
   { status: 'A' },
-  { $set: { status: 'Accepted', 'size.uom': 'cm' } },
-);
+  { $set: { status: 'Accepted', 'size.uom': 'cm' } }
+)
 
 //DELETE
 // удалить запись
 //DELETE FROM users;
 db.users.deleteOne({
-  _id: new ObjectId('66169aacdcc4fe4d97cc0750'),
-});
+  _id: new ObjectId('66169aacdcc4fe4d97cc0750')
+})
 //delete all without email
-db.users.deleteMany({ email: { $exists: false } });
+db.users.deleteMany({ email: { $exists: false } })
 
 //delete all collection
-db.inventory.drop();
+db.inventory.drop()
 
 //Insert cats collection
 db.cats.insertOne({
@@ -169,9 +169,9 @@ db.cats.insertOne({
     age: 0.7,
     gender: 'male',
     weight: 0.89,
-    breed: 'Scotish fold',
-  },
-});
+    breed: 'Scotish fold'
+  }
+})
 
 db.cats.insertMany([
   {
@@ -180,8 +180,8 @@ db.cats.insertMany([
       age: 5,
       gender: 'male',
       weight: 2,
-      breed: 'Scotich fold',
-    },
+      breed: 'Scotich fold'
+    }
   },
   {
     name: 'Nastya',
@@ -189,8 +189,8 @@ db.cats.insertMany([
       age: 7,
       gender: 'female',
       weight: 3.5,
-      breed: 'Somali',
-    },
+      breed: 'Somali'
+    }
   },
   {
     name: 'Max',
@@ -198,19 +198,19 @@ db.cats.insertMany([
       age: 2,
       gender: 'male',
       weight: 1,
-      breed: 'Ceylon',
-    },
-  },
-]);
+      breed: 'Ceylon'
+    }
+  }
+])
 
 db.cats.updateMany(
   {
-    'details.breed': 'Scotich fold',
+    'details.breed': 'Scotich fold'
   },
-  { $set: { breed: 'Scotish' } },
-);
+  { $set: { breed: 'Scotish' } }
+)
 
-db.cats.find();
+db.cats.find()
 
 //
 // db.cats.updateOne({ name: 'Garfield' }, { $unset: { breed: 'Scotish' } }); -удаляем опредеденное поле по условию
@@ -224,7 +224,7 @@ db.cats.updateOne(
   { name: 'Valdemar' },
   {
     $set: {
-      'details.age': 3,
-    },
-  },
-);
+      'details.age': 3
+    }
+  }
+)
